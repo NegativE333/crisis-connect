@@ -1,14 +1,16 @@
 import { cn } from "@/lib/utils"
 import Link from "next/link";
 import { SidebarItem } from "./sidebar-item";
+import { UserButton } from "@clerk/nextjs";
 
 type Props = {
     className?: string;
 }
 
-export const Sidebar = ({
+export const Sidebar = async ({
     className
 }: Props) => {
+
     return(
         <div
             className={cn("h-full lg:w-[256px] lg:fixed flex left-0 top-0 px-4 border-r-2 flex-col", className)}
@@ -36,8 +38,17 @@ export const Sidebar = ({
                     href="/add-alert"
                 />
                 <SidebarItem 
+                    label="Disaster's Info"
+                    href="/disaster-info"
+                />
+                <SidebarItem 
                     label="Help"
                     href="/help"
+                />
+            </div>
+            <div className="mb-4">
+                <UserButton 
+                    afterSignOutUrl="/"
                 />
             </div>
         </div>

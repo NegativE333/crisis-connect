@@ -2,12 +2,15 @@ import { AlertBox } from "@/components/alert-box";
 import { FeedWrapper } from "@/components/feed-wrapper";
 import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Suggestions } from "@/components/suggestions";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { getUserLocation } from "@/db/queries";
+import { auth } from "@clerk/nextjs";
 
 export default async function Home() {
 
   const userLocationData = await getUserLocation();
+  const {userId} = auth();
 
   const [
       userLocation
@@ -24,9 +27,10 @@ export default async function Home() {
         <Separator className="mt-4 h-0.5"/>
       </FeedWrapper>
       <StickyWrapper>
-        <AlertBox 
-          userLocation={userLocation}
-        />
+          <AlertBox 
+            userLocation={userLocation}
+            userId={userId ?? undefined}
+          />
         <Suggestions />
       </StickyWrapper>
     </div>

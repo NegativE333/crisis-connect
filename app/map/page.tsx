@@ -4,11 +4,13 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Suggestions } from "@/components/suggestions";
 import { Separator } from "@/components/ui/separator";
 import { getUserLocation } from "@/db/queries";
+import { auth } from "@clerk/nextjs";
 
 
 const MapPage = async () => {
 
     const userLocationData = await getUserLocation();
+    const {userId} = auth();
 
     const [
         userLocation
@@ -26,7 +28,8 @@ const MapPage = async () => {
             </FeedWrapper>
             <StickyWrapper>
                 <AlertBox 
-                userLocation={userLocation}
+                    userLocation={userLocation}
+                    userId={userId ?? undefined}
                 />
                 <Suggestions />
             </StickyWrapper>

@@ -4,16 +4,40 @@ import { useLocationModal } from "@/store/use-location-modal";
 import { Location } from "@prisma/client";
 import { AlertCircle } from "lucide-react"
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 type Props = {
     userLocation?: Location | null;
+    userId?: string;
 }
 
 export const AlertBox = ({
-    userLocation
+    userLocation,
+    userId
 } : Props) => {
 
     const {open} = useLocationModal();
+
+    const router = useRouter();
+    
+    if(!userId){
+        return(
+            <div className="w-full flex gap-4 items-center justify-center">
+                <Button 
+                    className="w-full" 
+                    onClick={() => router.push("/map")}
+                >
+                    Login
+                </Button>
+                <Button 
+                    className="w-full"
+                    onClick={() => router.push("/map")}
+                >
+                    Sign up
+                </Button>
+            </div>
+        )
+    }
 
     return(
         <div className="border-2 rounded-xl p-4 space-y-4">

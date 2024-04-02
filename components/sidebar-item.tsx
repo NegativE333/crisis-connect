@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { AlertTriangle, HeartHandshake, Home, MapPinned } from "lucide-react";
+import { AlertTriangle, HeartHandshake, Home, Library, MapPinned } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -31,6 +31,9 @@ export const SidebarItem = ({
     }
     else if(label === "Help"){
         Icon = <HeartHandshake className={cn("h-6 w-6", active && "text-red-500")}/>
+    }
+    else if(label === "Disaster's Info"){
+        Icon = <Library className={cn("h-6 w-6", active && "text-red-500")}/>
     }
 
     return (

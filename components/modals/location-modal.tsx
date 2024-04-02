@@ -31,7 +31,7 @@ export const LocationModal = () => {
                     close();
                     toast.success("Location set!");
                 })
-                .catch(() => toast.error("Something went wrong"));
+                .catch(() => toast.error("Something went wrong!"));
         });
     };
 

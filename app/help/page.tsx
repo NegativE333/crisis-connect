@@ -4,11 +4,13 @@ import { StickyWrapper } from "@/components/sticky-wrapper";
 import { Suggestions } from "@/components/suggestions";
 import { Separator } from "@/components/ui/separator";
 import { getUserLocation } from "@/db/queries";
+import { auth } from "@clerk/nextjs";
 
 const HelpPage = async () => {
 
     const userLocationData = await getUserLocation();
-
+    const {userId} = auth();
+    
     const [
         userLocation
     ] = await Promise.all([
@@ -25,7 +27,8 @@ const HelpPage = async () => {
             </FeedWrapper>
             <StickyWrapper>
                 <AlertBox 
-                userLocation={userLocation}
+                    userLocation={userLocation}
+                    userId={userId ?? undefined}
                 />
                 <Suggestions />
             </StickyWrapper>
