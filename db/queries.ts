@@ -2,16 +2,30 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { cache } from "react";
 
-export const getUserLocation = cache(async () => {
-     const {userId} = auth();
+export const getSharedInfo = cache(async () => {
 
-     if(!userId) return null;
+    const data = await db.shareInfo.findMany({
+        orderBy:{
+            createdAt: 'desc'
+        }
+    });
 
-     const data = await db.location.findUnique({
+    return data;
+
+});
+
+export const getAlertEmail = cache(async () => {
+    const {userId} = auth();
+
+    if(!userId){
+        return null;
+    }
+
+    const data = await db.email.findUnique({
         where: {
             userId
         }
-     });
+    });
 
-     return data;
-});
+    return data;
+})

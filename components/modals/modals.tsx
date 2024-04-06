@@ -1,10 +1,12 @@
-import { LocationModal } from "./location-modal"
+import { SetEmailModal } from "./set-email-modal"
+import { VerificationModal } from "./verification-modal"
 
 
 export const Modals = () => {
     return(
         <>
-            <LocationModal />
+            <SetEmailModal />
+            <VerificationModal />
         </>
     )
 }

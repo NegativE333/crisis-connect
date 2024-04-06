@@ -6,6 +6,14 @@ const nextConfig = {
                protocol: 'https',
                hostname: "cdn.sanity.io",
                port: "" 
+            },
+            {
+                protocol: 'https',
+                hostname: "ucarecdn.com"
+            },
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
             }
         ]
     }
