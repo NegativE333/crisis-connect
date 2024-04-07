@@ -19,8 +19,6 @@ const PreparednessTipsPage = async () => {
   
   const data : tipsProps [] = await getData();
 
-  console.log(data);
-
   return (
     <div>
       <h1 className="text-lg sm:text-4xl font-bold leading-snug">

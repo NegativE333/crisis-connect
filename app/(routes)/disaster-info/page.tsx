@@ -5,7 +5,7 @@ import { DisasterInfoCard } from "./disaster-info-card";
 
 async function getData() {
     const query = `
-        *[_type == 'info'] | order(_createdAt desc){
+        *[_type == 'info'] | order(_createdAt asc){
             title,
             desc,
             "currSlug" : slug.current,
