@@ -70,7 +70,9 @@ const MapLayout = async ({
                     location={AlertEmail?.location}
                     isVerified={isVerified}
                 />
-                <Suggestions />
+                <Suggestions 
+                    disasterType={data.length !== 0 ? data[0].type : " "}
+                />
             </StickyWrapper>
         </div>
     );
