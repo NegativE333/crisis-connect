@@ -9,5 +9,5 @@ export const isAdmin = () => {
 
     if(!userId) return false;
 
-    return allowedIds.indexOf(userId) !== -1;
+    return userId === process.env.ADMIN_ID;
 }
