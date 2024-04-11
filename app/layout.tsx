@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Crisis Connect",
-  description: "Crisis Connect - Disaster Response Platform",
+  description: "Crisis Connect - Disaster Response and Coordination Platform",
 };
 
 export default function RootLayout({
