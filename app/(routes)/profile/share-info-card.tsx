@@ -1,12 +1,11 @@
 "use client";
 
-import { unVerifyPost, verifyPost } from "@/actions/verify-unverify-post";
 import { Button } from "@/components/ui/button";
-import { Loader, MapPin, ShieldCheck, ShieldXIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
+import { MapPin, ShieldCheck, ShieldXIcon, Trash } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
-import { toast } from "sonner";
 
 type Props = {
     userId: string;
@@ -34,35 +33,7 @@ export const ShareInfoCard = ({
 
     const router = useRouter();
 
-    const [pending, startTransition] = useTransition();
-
-    
-    const isVerifiedByMe = verifiedBy.findIndex((id) => id === userId);
-    console.log(title);
-    console.log(userId);
-    console.log(verifiedBy);
-    
-    console.log(isVerifiedByMe);
-
-    const handleVerify = () => {
-        if(pending) return;
-
-        startTransition(() => {
-            verifyPost({postId})
-            .then(() => toast.success("Post verified"))
-            .catch(() => toast.error("Something went wrong"));
-        })
-    }
-
-    const handleUnVerify = () => {
-        if(pending) return;
-
-        startTransition(() => {
-            unVerifyPost({postId})
-            .then(() => toast.success("Post unverified"))
-            .catch(() => toast.error("Something went wrong"));
-        })
-    }
+    const {open} = useDeleteInfoModal();
 
     const handleSignIn = () => {
         router.push('/sign-in');
@@ -107,40 +78,25 @@ export const ShareInfoCard = ({
                 <p className="block font-sans text-base antialiased font-light leading-relaxed text-gray-700 mb-3">
                     {description}
                 </p>
-                <div className="flex items-center">
-                    <p className="flex gap-1 items-center font-semibold">
+                <div className="flex flex-col">
+                    <p className="flex gap-1 items-center font-semibold justify-start text-start">
                         <MapPin className="h-4 w-4"/>
                         {location}
                     </p>
-                    {isVerifiedByMe < 0 ? (
+                    <Separator className="my-2"/>
+                    <div className="flex justify-between items-center">
+                        <div className="rounded-full bg-opacity-65 text-green-900 flex gap-1 items-center text-base">
+                            <ShieldCheck className="h-4 w-4"/> {verifiedBy.length}
+                        </div>
                         <Button
                             variant="outline"
                             size="heightFit"
-                            className="border border-green-600 text-green-900 ml-auto hover:bg-green-600 hover:bg-opacity-20 w-[56px] h-[30px]"
-                            onClick={userId !== '' ? handleVerify : handleSignIn}
+                            className="border border-red-600 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[30px] h-[30px]"
+                            onClick={userId !== '' ? () => open(postId) : handleSignIn}
                         >
-                            {pending ? (
-                                <Loader className="animate-spin h-4 w-4"/>
-                            ) 
-                            : 
-                            ("Verify")
-                            }
-                        </Button>
-                    ) : (
-                        <Button
-                            variant="outline"
-                            size="heightFit"
-                            className="border border-red-600 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[70px] h-[30px]"
-                            onClick={handleUnVerify}
-                        >
-                            {pending ? (
-                                <Loader className="animate-spin h-4 w-4"/>
-                            ) 
-                            : 
-                            ("Unverify")
-                            }
-                        </Button>
-                    )}
+                            <Trash className="h-4 w-4"/>
+                         </Button>
+                    </div>
                 </div>
             </div>
         </div>

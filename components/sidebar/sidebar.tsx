@@ -49,6 +49,10 @@ export const Sidebar = async ({
                     label="Help"
                     href="/help"
                 />
+                <SidebarItem 
+                    label="Profile"
+                    href="/profile"
+                />
                 {isAdmin() && (
                     <SidebarItem
                         label="Send Alert"

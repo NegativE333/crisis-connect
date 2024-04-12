@@ -28,4 +28,24 @@ export const getAlertEmail = cache(async () => {
     });
 
     return data;
-})
+});
+
+export const getSharedInfoByUser = cache(async () => {
+    const {userId} = auth();
+
+    if(!userId){
+        return null;
+    }
+
+    const data = await db.shareInfo.findMany({
+        where:{
+            userId
+        },
+        orderBy:{
+            createdAt: 'desc'
+        }
+    });
+
+    return data;
+
+});

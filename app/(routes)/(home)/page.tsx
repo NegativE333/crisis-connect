@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs";
 export default async function Home() {
 
   const getSharedInfoData = getSharedInfo();
-
+ 
   const [
     sharedInfo
   ] = await Promise.all([
