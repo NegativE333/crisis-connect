@@ -38,11 +38,6 @@ export const ShareInfoCard = ({
 
     
     const isVerifiedByMe = verifiedBy.findIndex((id) => id === userId);
-    console.log(title);
-    console.log(userId);
-    console.log(verifiedBy);
-    
-    console.log(isVerifiedByMe);
 
     const handleVerify = () => {
         if(pending) return;
