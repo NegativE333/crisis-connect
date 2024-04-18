@@ -34,6 +34,8 @@ export default async function Home() {
               location={info.location}
               isVerified={info.verified}
               verifiedBy={info.verifiedBy}
+              createdAt={info.createdAt}
+              updatedAt={info.updatedAt}
             />
           ))}
         </div>

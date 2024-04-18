@@ -2,7 +2,7 @@
 
 import { unVerifyPost, verifyPost } from "@/actions/verify-unverify-post";
 import { Button } from "@/components/ui/button";
-import { Loader, MapPin, ShieldCheck, ShieldXIcon } from "lucide-react";
+import { Loader, MapPin, PenLine, ShieldCheck, ShieldXIcon } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -18,6 +18,8 @@ type Props = {
     location: string;
     isVerified: boolean;
     verifiedBy: string[];
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export const ShareInfoCard = ({
@@ -29,7 +31,9 @@ export const ShareInfoCard = ({
     imageSrc,
     location,
     isVerified,
-    verifiedBy
+    verifiedBy,
+    createdAt,
+    updatedAt
 }: Props) => {
 
     const router = useRouter();
@@ -71,7 +75,7 @@ export const ShareInfoCard = ({
                 className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 h-[200px]">
                 {imageSrc ? (
                     <Image
-                        alt="hi there"
+                        alt="info-image"
                         src={imageSrc}
                         fill
                     />
@@ -87,6 +91,11 @@ export const ShareInfoCard = ({
                 ) : (
                     <div className="absolute right-1 top-1 bg-red-300 p-1 rounded-full px-2 bg-opacity-65 text-red-900 flex gap-1 items-center text-sm">
                         <ShieldXIcon className="h-4 w-4"/> Not Verified
+                    </div>
+                )}
+                {createdAt.getTime().toLocaleString() !== updatedAt.getTime().toLocaleString() && (
+                    <div className="absolute left-1 top-1 flex gap-0.5 text-xs justify-center items-center bg-black/20 p-1 rounded-full">
+                        <PenLine className="h-3 w-3"/> Edited
                     </div>
                 )}
                 <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">

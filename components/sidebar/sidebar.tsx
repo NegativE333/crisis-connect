@@ -2,10 +2,10 @@ import { cn } from "@/lib/utils"
 import Link from "next/link";
 import { SidebarItem } from "./sidebar-item";
 import { UserButton } from "@clerk/nextjs";
-import { Nunito } from "next/font/google";
+import { Nunito, Urbanist } from "next/font/google";
 import { isAdmin } from "@/lib/admin";
 
-const font = Nunito({subsets: ['latin'], weight: ['600']});
+const font = Urbanist({subsets: ['latin'], weight: ['600']});
 
 type Props = {
     className?: string;
@@ -23,7 +23,7 @@ export const Sidebar = async ({
                 href="/"
             >
                 <div className="pt-3 sm:pt-8 pl-1 sm:pl-4 pb-7 flex items-center gap-x-3">
-                    <h1 className={cn("text-2xl font-extrabold bg-rose-500 bg-opacity-50 hover:bg-opacity-75 transition px-3 py-0.5 rounded-full", font.className)}>
+                    <h1 className={cn("text-2xl font-extrabold bg-rose-500 bg-opacity-75 transition px-3 py-0.5 rounded-full", font.className)}>
                         Crisis Connect
                     </h1>
                 </div>

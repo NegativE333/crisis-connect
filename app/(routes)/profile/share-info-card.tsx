@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
-import { MapPin, ShieldCheck, ShieldXIcon, Trash } from "lucide-react";
+import { FilePen, MapPin, PenLine, ShieldCheck, ShieldXIcon, Trash } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 
@@ -17,6 +17,8 @@ type Props = {
     location: string;
     isVerified: boolean;
     verifiedBy: string[];
+    updatedAt: Date;
+    createdAt: Date;
 }
 
 export const ShareInfoCard = ({
@@ -28,12 +30,14 @@ export const ShareInfoCard = ({
     imageSrc,
     location,
     isVerified,
-    verifiedBy
+    verifiedBy,
+    createdAt,
+    updatedAt
 }: Props) => {
 
     const router = useRouter();
 
-    const {open} = useDeleteInfoModal();
+    const {open: openDeleteModal} = useDeleteInfoModal();
 
     const handleSignIn = () => {
         router.push('/sign-in');
@@ -65,6 +69,11 @@ export const ShareInfoCard = ({
                         <ShieldXIcon className="h-4 w-4"/> Not Verified
                     </div>
                 )}
+                {createdAt.getTime().toLocaleString() !== updatedAt.getTime().toLocaleString() && (
+                    <div className="absolute left-1 top-1 flex gap-0.5 text-xs justify-center items-center bg-black/20 p-1 rounded-full">
+                        <PenLine className="h-3 w-3"/> Edited
+                    </div>
+                )}
                 <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">
                     {type}
                 </div>
@@ -88,14 +97,24 @@ export const ShareInfoCard = ({
                         <div className="rounded-full bg-opacity-65 text-green-900 flex gap-1 items-center text-base">
                             <ShieldCheck className="h-4 w-4"/> {verifiedBy.length}
                         </div>
-                        <Button
-                            variant="outline"
-                            size="heightFit"
-                            className="border border-red-600 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[30px] h-[30px]"
-                            onClick={userId !== '' ? () => open(postId) : handleSignIn}
-                        >
-                            <Trash className="h-4 w-4"/>
-                         </Button>
+                        <div className="ml-auto flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="heightFit"
+                                className="border border-black text-black ml-auto hover:bg-gray-400 hover:bg-opacity-20 w-[30px] h-[30px]"
+                                onClick={userId !== '' ? () => router.push(`/edit/${postId}`) : handleSignIn}
+                            >
+                                <FilePen className="h-4 w-4"/>
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="heightFit"
+                                className="border border-red-600 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[30px] h-[30px]"
+                                onClick={userId !== '' ? () => openDeleteModal(postId) : handleSignIn}
+                            >
+                                <Trash className="h-4 w-4"/>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

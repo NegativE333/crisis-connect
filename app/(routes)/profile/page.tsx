@@ -1,8 +1,6 @@
 import { getSharedInfoByUser } from "@/db/queries";
 import { ShareInfoCard } from "./share-info-card";
 import { Separator } from "@/components/ui/separator";
-import { auth } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
 
 const ProfilePage = async () => {
@@ -37,6 +35,8 @@ const ProfilePage = async () => {
                             location={info.location}
                             isVerified={info.verified}
                             verifiedBy={info.verifiedBy}
+                            createdAt={info.createdAt}
+                            updatedAt={info.updatedAt}
                         />
                     ))}
                 </div>

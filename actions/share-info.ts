@@ -42,3 +42,48 @@ export const setShareInfo = async ({
 
     return { shareInfo };
 }
+
+type updateProps = {
+    id: string;
+    title: string;
+    type?: string | undefined;
+    description: string;
+    imageUrl: string;
+    location: string;
+}
+
+export const updateShareInfo = async ({
+    id,
+    title,
+    type = "",
+    description,
+    imageUrl,
+    location
+}: updateProps) => {
+    const {userId} = await auth();
+    const user = await currentUser();
+
+    if(!userId || !user){
+        throw new Error("Unauthorized");
+    }
+
+    const updatedShareInfo = await db.shareInfo.update({
+        where: {
+            id
+        },
+        data:{
+            userId,
+            title,
+            type,
+            description,
+            imageUrl,
+            location
+        }
+    });
+
+    revalidatePath("/");
+    revalidatePath("/add-alert");
+    revalidatePath("/profile");
+
+    return { updatedShareInfo };
+}

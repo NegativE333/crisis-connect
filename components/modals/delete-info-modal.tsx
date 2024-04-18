@@ -23,7 +23,7 @@ export const DeleteInfoModal = () => {
             startTransition(() => {
                 deletePost({postId : id})
                 .then(() => {
-                    toast.success("Post deleted")
+                    toast.success("Info deleted")
                     close();
                 })
                 .catch(() => toast.error("Something went wrong"));
