@@ -69,6 +69,7 @@ const MapLayout = async ({
                     email={AlertEmail?.email}
                     location={AlertEmail?.location}
                     isVerified={isVerified}
+                    userId={userId}
                 />
                 <Suggestions 
                     disasterType={data.length !== 0 ? data[0].type : " "}

@@ -1,23 +1,29 @@
 "use client";
 
 import { Button } from "../ui/button";
-import { Mail, MailWarning, MapPin } from "lucide-react";
+import { Check, Mail, MailWarning, MapPin, SquarePen, X } from "lucide-react";
 import { useSetEmailModal } from "@/store/use-set-email-modal";
-import { checkVerificationStatus } from "@/lib/verify-email";
+import { useRouter } from "next/navigation";
+import { TooltipWrapper } from "../wrapper/tooltip-wrapper";
 
 type Props = {
     email?: string,
     location?: string
     isVerified?: boolean;
+    userId: string | null;
 }
 
 export const EmailBox = ({
     email,
     location,
-    isVerified
+    isVerified,
+    userId
 }: Props) => {
 
     const { open } = useSetEmailModal();
+    const router = useRouter();
+
+    console.log(userId);
 
     return (
         <div className="border-2 rounded-xl p-4 space-y-4">
@@ -28,7 +34,7 @@ export const EmailBox = ({
                 </h3>
                 {!email ? (
                     <Button
-                        onClick={open}
+                        onClick={userId ? () => open : () => router.push('/sign-in')}
                         size="sm"
                         variant="outline"
                     >
@@ -36,15 +42,9 @@ export const EmailBox = ({
                     </Button>
                 ) : (
                     <div>
-                        {isVerified ? (
-                            <p className="bg-green-600 bg-opacity-75 p-1 px-2 rounded-full text-xs text-green-900 font-semibold">
-                                Verified
-                            </p>
-                        ) : (
-                            <p className="bg-red-600 bg-opacity-75 p-1 px-2 rounded-full text-xs text-red-900 font-semibold">
-                                Not verified
-                            </p>
-                        )}
+                        <TooltipWrapper tip="Edit">
+                            <SquarePen className="h-5 w-5 cursor-pointer"/>
+                        </TooltipWrapper>
                     </div>
                 )}
             </div>
@@ -55,10 +55,23 @@ export const EmailBox = ({
                     </p>
                 ) : (
                     <div className="text-sm flex flex-col gap-2">
-                        <p className="flex gap-1 items-center">
-                            <Mail className="h-4 w-4" />
-                            {email}
-                        </p>
+                        <div className="flex gap-1 items-center">
+                            <p className="flex gap-1 items-center">
+                                <Mail className="h-4 w-4" />
+                                {email}
+                            </p>
+                            <div className="ml-auto">
+                                {isVerified ? (
+                                    <div className="border border-green-400 rounded-full text-xs px-1 text-green-900">
+                                        Verified
+                                    </div>
+                                ) : (
+                                    <div className="border border-red-400 rounded-full text-xs px-1 text-red-900">
+                                        Not Verified
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                         <p className="flex gap-1 items-center">
                             <MapPin className="h-4 w-4" />
                             {location}

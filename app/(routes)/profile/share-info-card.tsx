@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { TooltipWrapper } from "@/components/wrapper/tooltip-wrapper";
 import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
-import { FilePen, MapPin, PenLine, ShieldCheck, ShieldXIcon, Trash } from "lucide-react";
+import { MapPin, PenLine, ShieldCheck, ShieldXIcon, SquarePen, Trash } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 
@@ -98,22 +99,24 @@ export const ShareInfoCard = ({
                             <ShieldCheck className="h-4 w-4"/> {verifiedBy.length}
                         </div>
                         <div className="ml-auto flex gap-2">
-                            <Button
-                                variant="outline"
-                                size="heightFit"
-                                className="border border-black text-black ml-auto hover:bg-gray-400 hover:bg-opacity-20 w-[30px] h-[30px]"
-                                onClick={userId !== '' ? () => router.push(`/edit/${postId}`) : handleSignIn}
-                            >
-                                <FilePen className="h-4 w-4"/>
-                            </Button>
-                            <Button
-                                variant="outline"
-                                size="heightFit"
-                                className="border border-red-600 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[30px] h-[30px]"
-                                onClick={userId !== '' ? () => openDeleteModal(postId) : handleSignIn}
-                            >
-                                <Trash className="h-4 w-4"/>
-                            </Button>
+                            <TooltipWrapper tip="Edit">
+                                <Button
+                                    variant="outline"
+                                    className="border px-0 py-0 text-black ml-auto hover:bg-gray-400 hover:bg-opacity-20 h-[30px] w-[30px]"
+                                    onClick={userId !== '' ? () => router.push(`/edit/${postId}`) : handleSignIn}
+                                >
+                                        <SquarePen className="h-5 w-5"/>
+                                </Button>
+                            </TooltipWrapper>
+                            <TooltipWrapper tip="Delete">
+                                <Button
+                                    variant="outline"
+                                    className="border px-0 py-0 text-red-900 ml-auto hover:bg-red-600 hover:bg-opacity-20 w-[30px] h-[30px]"
+                                    onClick={userId !== '' ? () => openDeleteModal(postId) : handleSignIn}
+                                >
+                                    <Trash className="h-5 w-5"/>
+                                </Button>
+                            </TooltipWrapper>
                         </div>
                     </div>
                 </div>
