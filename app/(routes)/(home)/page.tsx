@@ -17,11 +17,11 @@ export default async function Home() {
 
   return (
     <div className="">
-        <h1 className="text-lg sm:text-4xl font-bold leading-snug">
+        <h1 className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-bold leading-snug">
           Crowd-Sourced Insights on <span className="text-rose-500">Disasters</span>
         </h1>
         <Separator className="mt-4 h-0.5"/>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
           {sharedInfo?.map((info) => (
             <ShareInfoCard 
               key={info.id}

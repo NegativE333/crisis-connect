@@ -3,7 +3,9 @@
 import { sendAlertEmails } from "@/actions/send-alert-email";
 import { FormInput } from "@/components/form/form-input";
 import { FormSubmit } from "@/components/form/form-submit";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import { MailCheck } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -12,6 +14,9 @@ const SendAlertPage = () => {
     const [type, setType] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
+    const [sentStatus, setSentStatus] = useState(false);
+    const [alertType, setAlertType] = useState("");
+    const [alertLocation, setAlertLocation] = useState("");
     const [pending, startTransition] = useTransition();
 
     const handleSubmit = (event: any) => {
@@ -34,11 +39,15 @@ const SendAlertPage = () => {
             })
             .then((data) => {
                 if(data.sentStatus === true){
+                    console.log(data);
                     toast.success("Emails sent successfully");
+                    setAlertLocation(location);
+                    setAlertType(type);
                     setTitle("");
                     setType("");
                     setDescription("");
                     setLocation("");
+                    setSentStatus(true);
                 }
                 else{
                     toast.success("Failed to send emails");
@@ -86,6 +95,21 @@ const SendAlertPage = () => {
                     Send
                 </FormSubmit>
             </form>
+            {sentStatus && (
+                <div className="mt-4">
+                    <Alert className="bg-green-500/30 text-green-900">
+                        {/* <div className="flex items-center gap-2"> */}
+                            <MailCheck className="h-4 w-4 text-green-900"/>
+                            <AlertTitle>
+                                Alert Emails sent successfully
+                            </AlertTitle>
+                        {/* </div> */}
+                        <AlertDescription className="">
+                            Alert for <b>{alertType}</b> has been successfully sent to all users in the <b>{alertLocation}</b> location.
+                        </AlertDescription>
+                    </Alert>
+                </div>
+            )}
         </div>
     );
 }

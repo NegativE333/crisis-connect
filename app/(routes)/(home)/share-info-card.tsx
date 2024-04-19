@@ -104,7 +104,7 @@ export const ShareInfoCard = ({
             </div>
             <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                    <h5 className="block font-sans text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+                    <h5 className="block font-sans text-base sm:text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
                         {title}
                     </h5>
                 </div>
@@ -112,7 +112,7 @@ export const ShareInfoCard = ({
                     {description}
                 </p>
                 <div className="flex items-center">
-                    <p className="flex gap-1 items-center font-semibold">
+                    <p className="flex gap-1 items-center font-semibold truncate w-[70%] sm:w-[80%] text-sm sm:text-base">
                         <MapPin className="h-4 w-4"/>
                         {location}
                     </p>

@@ -50,6 +50,10 @@ export const Sidebar = async ({
                     href="/help"
                 />
                 <SidebarItem 
+                    label="Learn More"
+                    href="/learn-more"
+                />
+                <SidebarItem 
                     label="Profile"
                     href="/profile"
                 />

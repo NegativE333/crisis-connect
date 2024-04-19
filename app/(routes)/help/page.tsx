@@ -18,7 +18,6 @@ const HelpPage = async () => {
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Air Ambulance</dt>
                   <dd className="text-lg font-semibold">9540161344</dd>
               </div>
-              
               <div className="flex flex-col py-3">
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Disaster Management (N.D.M.A)</dt>
                   <dd className="text-lg font-semibold">1078</dd>
