@@ -66,3 +66,98 @@ export const setUserAlertEmail = async ({
 
     return { userAlertEmail, isVerified };
 }
+
+type GetAlertEmailDataProps = {
+    userId: string;
+}
+
+export const getAlertEmailData = async ({
+    userId
+}: GetAlertEmailDataProps) => {
+
+    if(!userId){
+        throw new Error("Unauthorized");
+    }
+
+    const alertEmailData = await db.email.findUnique({
+        where: {
+            userId
+        }
+    });
+
+    revalidatePath("/");
+    revalidatePath("/share-info");
+    revalidatePath("/profile");
+
+    return {alertEmailData};
+}
+
+export const updateUserAlertEmail = async ({
+    location,
+    email
+} : Props) => {
+
+    const isVerified = await checkVerificationStatus(email);
+
+    const {userId} = await auth();
+    const user = await currentUser();
+
+    if(!userId || !user){
+        throw new Error("Unauthorized");
+    }
+
+    const userAlertEmail = await db.email.update({
+        where:{
+            userId
+        },
+        data:{
+            email,
+            location
+        }
+    });
+
+    if(!isVerified){
+        const verifyProps = {
+            EmailAddress: email
+        };
+
+        await ses.verifyEmailAddress(verifyProps, (err, data) => {
+            if(err){
+                throw new Error("Error while sending verfication email");
+            }
+            else{
+                console.log("Email Sent");
+            }
+        });
+    }
+    else{
+        console.log("email verified");
+    }
+
+    revalidatePath("/");
+    revalidatePath("/add-alert");
+
+    return { userAlertEmail, isVerified };
+}
+
+type ResendVerificationEmailProps = {
+    email : string;
+}
+
+export const resendVerificationEmail = async ({
+    email
+}: ResendVerificationEmailProps) => {
+
+    const verifyProps = {
+        EmailAddress: email
+    };
+
+    await ses.verifyEmailAddress(verifyProps, (err, data) => {
+        if(err){
+            throw new Error("Error while sending verfication email");
+        }
+        else{
+            console.log("Email Sent");
+        }
+    });
+}

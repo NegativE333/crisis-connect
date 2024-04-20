@@ -39,7 +39,6 @@ const SendAlertPage = () => {
             })
             .then((data) => {
                 if(data.sentStatus === true){
-                    console.log(data);
                     toast.success("Emails sent successfully");
                     setAlertLocation(location);
                     setAlertType(type);

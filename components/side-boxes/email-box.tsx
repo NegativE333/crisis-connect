@@ -1,10 +1,12 @@
 "use client";
 
 import { Button } from "../ui/button";
-import { Check, Mail, MailWarning, MapPin, SquarePen, X } from "lucide-react";
+import { Mail, MailWarning, MapPin, SquarePen} from "lucide-react";
 import { useSetEmailModal } from "@/store/use-set-email-modal";
 import { useRouter } from "next/navigation";
 import { TooltipWrapper } from "../wrapper/tooltip-wrapper";
+import { useUpdateEmailModal } from "@/store/use-update-email-modal";
+import { useResendVerificationEmailModal } from "@/store/use-resend-verification-email-modal";
 
 type Props = {
     email?: string,
@@ -20,10 +22,11 @@ export const EmailBox = ({
     userId
 }: Props) => {
 
-    const { open } = useSetEmailModal();
-    const router = useRouter();
+    const { open: openSetModal } = useSetEmailModal();
+    const { open: openUpdateModal } = useUpdateEmailModal();
+    const { open : openResendModal } = useResendVerificationEmailModal();
 
-    console.log(userId);
+    const router = useRouter();
 
     return (
         <div className="border-2 rounded-xl p-4 space-y-4">
@@ -34,7 +37,7 @@ export const EmailBox = ({
                 </h3>
                 {!email ? (
                     <Button
-                        onClick={userId ? () => open : () => router.push('/sign-in')}
+                        onClick={userId ? () => openSetModal() : () => router.push('/sign-in')}
                         size="sm"
                         variant="outline"
                     >
@@ -43,7 +46,10 @@ export const EmailBox = ({
                 ) : (
                     <div>
                         <TooltipWrapper tip="Edit">
-                            <SquarePen className="h-5 w-5 cursor-pointer"/>
+                            <SquarePen 
+                                onClick={() => openUpdateModal(userId ?? "")}
+                                className="h-5 w-5 cursor-pointer"
+                            />
                         </TooltipWrapper>
                     </div>
                 )}
@@ -54,7 +60,7 @@ export const EmailBox = ({
                         Set Your Email and Preferred Location to Receive Email Alerts.
                     </p>
                 ) : (
-                    <div className="text-sm flex flex-col gap-2">
+                    <div className="text-sm flex flex-col gap-2 relative">
                         <div className="flex gap-1 items-center">
                             <p className="flex gap-1 items-center">
                                 <Mail className="h-4 w-4" />
@@ -66,7 +72,9 @@ export const EmailBox = ({
                                         Verified
                                     </div>
                                 ) : (
-                                    <div className="border border-red-400 rounded-full text-xs px-1 text-red-900">
+                                    <div 
+                                        className="border border-red-400 rounded-full text-xs px-1 text-red-900"
+                                    >
                                         Not Verified
                                     </div>
                                 )}
@@ -76,6 +84,14 @@ export const EmailBox = ({
                             <MapPin className="h-4 w-4" />
                             {location}
                         </p>
+                        {!isVerified && (
+                            <div 
+                                onClick={() => openResendModal(email)}
+                                className="text-[10px] px-1 border rounded-full absolute bottom-0 right-0 cursor-pointer"
+                            >
+                                Resend Verificaion Link
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

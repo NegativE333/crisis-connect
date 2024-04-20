@@ -29,17 +29,17 @@ const HelpPage = async () => {
               <div className="flex flex-col py-3">
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">NDMA Website</dt>
                   <dd className="text-lg font-semibold">
-                    <Link href="https://ndma.gov.in/" className="text-blue-500">
+                    <a href="https://ndma.gov.in/" className="text-blue-500" target="_blank">
                       https://ndma.gov.in/
-                    </Link>
+                    </a>
                   </dd>
               </div>
               <div className="flex flex-col py-3">
                   <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Sachet NDMA Website</dt>
                   <dd className="text-lg font-semibold">
-                    <Link href="https://sachet.ndma.gov.in/" className="text-blue-500">
+                    <a href="https://sachet.ndma.gov.in/" className="text-blue-500" target="_blank">
                       https://sachet.ndma.gov.in/
-                    </Link>
+                    </a>
                   </dd>
               </div>
           </dl>

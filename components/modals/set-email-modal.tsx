@@ -10,11 +10,33 @@ import { FormSubmit } from "../form/form-submit";
 import { toast } from "sonner";
 import { setUserAlertEmail } from "@/actions/alert-email";
 import { useEmailVerificationModal } from "@/store/use-verification-modal";
+import { useSession } from "@clerk/nextjs";
 
 export const SetEmailModal = () => {
+    const {session} = useSession();
     const { isOpen, close } = useSetEmailModal();
     const { open } = useEmailVerificationModal();
     const [isClient, setIsClient] = useState(false);
+
+    const [location, setLocation] = useState("");
+    const [locationDefaultValue, setLocationDefaultValue] = useState("");
+    const [emailDefaultValue, setEmailDefaultValue] = useState<string | undefined>("");
+
+    const fetchLoc = async () => {
+        try{
+            let url = `https://ipinfo.io/json?token=${process.env.NEXT_PUBLIC_IPINFO_TOKEN}`
+            let res = await fetch(url);
+            let data = await res.json();
+            setLocation(data.city);
+        }
+        catch(error){
+            toast.error("Failed to fetch your current location");
+        }
+    }
+
+    useEffect(() => {
+        fetchLoc();
+    }, []);
 
     useEffect(() => setIsClient(true), []);
 
@@ -47,7 +69,6 @@ export const SetEmailModal = () => {
                     toast.error("Something went wrong");
                 })
         });
-
     };
 
     if (!isClient) return null;
@@ -65,16 +86,34 @@ export const SetEmailModal = () => {
                     <Separator />
                     <form onSubmit={handleSubmit} className="mx-0">
                         <div className="space-y-4">
-                            <FormInput
-                                label="Location"
-                                id="location"
-                                type="text"
-                            />
-                            <FormInput
-                                label="Email"
-                                id="email"
-                                type="email"
-                            />
+                            <div className="relative">
+                                <FormInput
+                                    label="Location"
+                                    id="location"
+                                    type="text"
+                                    defaultValue={locationDefaultValue}
+                                />
+                                <div 
+                                    onClick={() => setLocationDefaultValue(location)}
+                                    className="absolute top-1 right-1 text-[10px] border rounded-full px-1 cursor-pointer"
+                                >
+                                    Use Current Location
+                                </div>
+                            </div>
+                            <div className="relative">
+                                <FormInput
+                                    label="Email"
+                                    id="email"
+                                    type="email"
+                                    defaultValue={emailDefaultValue}
+                                />
+                                <div 
+                                    onClick={() => setEmailDefaultValue(session?.user.emailAddresses[0].emailAddress)}
+                                    className="absolute top-1 right-1 text-[10px] border rounded-full px-1 cursor-pointer"
+                                >
+                                    Use default Email
+                                </div>
+                            </div>
                             <Separator />
                             <FormSubmit
                                 isProcessing={pending}
