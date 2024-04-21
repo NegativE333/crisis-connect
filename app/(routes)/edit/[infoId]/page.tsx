@@ -1,4 +1,4 @@
-import { getInfoById } from "@/actions/get-info-by-id";
+import { getInfoById } from "@/actions/share-info";
 import { EditForm } from "./edit-form";
 import { Separator } from "@/components/ui/separator";
 

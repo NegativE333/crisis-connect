@@ -7,8 +7,7 @@ import { Separator } from "../ui/separator";
 import { toast } from "sonner";
 import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
 import { Button } from "../ui/button";
-import { deletePost } from "@/actions/delete-info";
-
+import { deletePost } from "@/actions/share-info";
 
 export const DeleteInfoModal = () => {
     const { id, isOpen, close } = useDeleteInfoModal();

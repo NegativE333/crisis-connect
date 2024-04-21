@@ -2,12 +2,11 @@
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useEffect, useState, useTransition } from "react";
-import { AlertTriangle, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { toast } from "sonner";
 import { useResendVerificationEmailModal } from "@/store/use-resend-verification-email-modal";
 import { Button } from "../ui/button";
-import { deletePost } from "@/actions/delete-info";
 import { resendVerificationEmail } from "@/actions/alert-email";
 import { useEmailVerificationModal } from "@/store/use-verification-modal";
 

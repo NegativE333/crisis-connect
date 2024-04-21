@@ -87,3 +87,59 @@ export const updateShareInfo = async ({
 
     return { updatedShareInfo };
 }
+
+type DeleteProps = {
+    postId: string;
+}
+
+export const deletePost = async ({
+    postId
+}: DeleteProps) => {
+
+    const {userId} = await auth();
+
+    if(!userId){
+        throw new Error("Unauthorized");
+    }
+
+    const shareInfoPost = await db.shareInfo.delete({
+        where: {
+            id: postId
+        }
+    });
+
+    if(!shareInfoPost){
+        throw new Error("Post does not exists");
+    }
+
+    revalidatePath("/");
+    revalidatePath("/add-alert");
+    revalidatePath("/profile");
+}
+
+type GetInfoByIdProps = {
+    postId: string;
+}
+
+export const getInfoById = async ({
+    postId
+}: GetInfoByIdProps) => {
+
+    const {userId} = await auth();
+
+    if(!userId){
+        throw new Error("Unauthorized");
+    }
+
+    const infoPost = await db.shareInfo.findUnique({
+        where: {
+            id: postId
+        }
+    });
+
+    if(!infoPost){
+        throw new Error("Post does not exists");
+    }
+
+    return(infoPost);
+}
