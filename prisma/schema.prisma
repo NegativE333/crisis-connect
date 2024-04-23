@@ -24,6 +24,7 @@ model ShareInfo{
   location String
   verified Boolean @default(false)
   verifiedBy    String[]
+  isUpdated Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())

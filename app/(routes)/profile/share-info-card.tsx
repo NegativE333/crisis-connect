@@ -1,10 +1,11 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TooltipWrapper } from "@/components/wrapper/tooltip-wrapper";
 import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
-import { MapPin, PenLine, ShieldCheck, ShieldXIcon, SquarePen, Trash } from "lucide-react";
+import { BadgeCheck, MapPin, PenLine, ShieldCheck, ShieldXIcon, SquarePen, Trash } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 
@@ -18,6 +19,7 @@ type Props = {
     location: string;
     isVerified: boolean;
     verifiedBy: string[];
+    isUpdated: boolean;
     updatedAt: Date;
     createdAt: Date;
 }
@@ -32,6 +34,7 @@ export const ShareInfoCard = ({
     location,
     isVerified,
     verifiedBy,
+    isUpdated,
     createdAt,
     updatedAt
 }: Props) => {
@@ -70,13 +73,21 @@ export const ShareInfoCard = ({
                         <ShieldXIcon className="h-4 w-4"/> Not Verified
                     </div>
                 )}
-                {createdAt.getTime().toLocaleString() !== updatedAt.getTime().toLocaleString() && (
+                {isUpdated && (
                     <div className="absolute left-1 top-1 flex gap-0.5 text-xs justify-center items-center bg-black/20 p-1 rounded-full">
                         <PenLine className="h-3 w-3"/> Edited
                     </div>
                 )}
-                <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">
-                    {type}
+                <div className="absolute left-0.5 bottom-0.5">
+                    <Badge className="py-1">
+                        {type}
+                    </Badge>
+                </div>
+                <div className="absolute right-0.5 bottom-0.5">
+                    <Badge className="py-0.5 bg-green-300 text-emerald-900 hover:bg-emerald-200">
+                        <BadgeCheck className="h-3 w-3 mr-1"/>
+                        {verifiedBy.length}
+                    </Badge>
                 </div>
             </div>
             <div className="p-6">
@@ -95,9 +106,6 @@ export const ShareInfoCard = ({
                     </p>
                     <Separator className="my-2"/>
                     <div className="flex justify-between items-center">
-                        <div className="rounded-full bg-opacity-65 text-green-900 flex gap-1 items-center text-base">
-                            <ShieldCheck className="h-4 w-4"/> {verifiedBy.length}
-                        </div>
                         <div className="ml-auto flex gap-2">
                             <TooltipWrapper tip="Edit">
                                 <Button

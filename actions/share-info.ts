@@ -77,7 +77,8 @@ export const updateShareInfo = async ({
             type,
             description,
             imageUrl,
-            location
+            location,
+            isUpdated: true,
         }
     });
 

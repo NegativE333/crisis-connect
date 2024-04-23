@@ -4,6 +4,7 @@ import { updateShareInfo } from "@/actions/share-info";
 import { FormInput } from "@/components/form/form-input"
 import { FormSubmit } from "@/components/form/form-submit";
 import { ImageUpload } from "@/components/form/image-upload"
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label"
 import { ShareInfo } from "@prisma/client";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,6 @@ type Props = {
 export const EditForm = ({
     infoData
 }: Props) => {
-
     const [imageUrl, setImageUrl] = useState<string | undefined>(infoData.imageUrl);
     const [pending, startTransition] = useTransition();
     const router = useRouter();
@@ -75,12 +75,24 @@ export const EditForm = ({
                     label="Location"
                     defaultValue={infoData.location}
                 />
-                <FormSubmit
-                    className="w-full"
-                    isProcessing={pending}
-                >
-                    Update
-                </FormSubmit>
+                <div className="flex gap-2">
+                    <FormSubmit
+                        className="w-full"
+                        isProcessing={pending}
+                    >
+                        Update
+                    </FormSubmit>
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.push('/profile');
+                        }}
+                        className="w-full" 
+                        variant="outline"
+                    >
+                        Cancle
+                    </Button>
+                </div>
             </form>
         </div>
     )

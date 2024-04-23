@@ -1,8 +1,9 @@
 "use client";
 
 import { unVerifyPost, verifyPost } from "@/actions/verify-unverify-post";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader, MapPin, PenLine, ShieldCheck, ShieldXIcon } from "lucide-react";
+import { BadgeCheck, Loader, MapPin, PenLine, ShieldCheck, ShieldXIcon } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
@@ -18,6 +19,7 @@ type Props = {
     location: string;
     isVerified: boolean;
     verifiedBy: string[];
+    isUpdated: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -32,6 +34,7 @@ export const ShareInfoCard = ({
     location,
     isVerified,
     verifiedBy,
+    isUpdated,
     createdAt,
     updatedAt
 }: Props) => {
@@ -70,7 +73,7 @@ export const ShareInfoCard = ({
     if(verifiedBy.length >= 1) isVerified = true;
 
     return (
-        <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+        <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg h-full">
             <div
                 className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40 h-[200px]">
                 {imageSrc ? (
@@ -78,6 +81,7 @@ export const ShareInfoCard = ({
                         alt="info-image"
                         src={imageSrc}
                         fill
+                        loading="lazy"
                     />
                 ) : (
                     <div>
@@ -93,25 +97,38 @@ export const ShareInfoCard = ({
                         <ShieldXIcon className="h-4 w-4"/> Not Verified
                     </div>
                 )}
-                {createdAt.getTime().toLocaleString() !== updatedAt.getTime().toLocaleString() && (
+                {isUpdated && (
                     <div className="absolute left-1 top-1 flex gap-0.5 text-xs justify-center items-center bg-black/20 p-1 rounded-full">
                         <PenLine className="h-3 w-3"/> Edited
                     </div>
                 )}
-                <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">
+                <div className="absolute left-0.5 bottom-0.5">
+                    <Badge className="py-1">
+                        {type}
+                    </Badge>
+                </div>
+                <div className="absolute right-0.5 bottom-0.5">
+                    <Badge className="py-0.5 bg-green-300 text-emerald-900 hover:bg-emerald-200">
+                        <BadgeCheck className="h-3 w-3 mr-1"/>
+                        {verifiedBy.length}
+                    </Badge>
+                </div>
+                {/* <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">
                     {type}
-                </div>
+                </div> */}
             </div>
-            <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                    <h5 className="block font-sans text-base sm:text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
-                        {title}
-                    </h5>
+            <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                    <div className="flex items-center justify-between mb-3">
+                        <h5 className="block font-sans text-base sm:text-xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+                            {title}
+                        </h5>
+                    </div>
+                    <p className="block font-sans text-base antialiased font-light leading-relaxed text-gray-700 mb-3">
+                        {description}
+                    </p>
                 </div>
-                <p className="block font-sans text-base antialiased font-light leading-relaxed text-gray-700 mb-3">
-                    {description}
-                </p>
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                     <p className="flex gap-1 items-center font-semibold truncate w-[70%] sm:w-[80%] text-sm sm:text-base">
                         <MapPin className="h-4 w-4"/>
                         {location}

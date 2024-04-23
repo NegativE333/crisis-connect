@@ -2,6 +2,7 @@ import { getSharedInfoByUser } from "@/db/queries";
 import { ShareInfoCard } from "./share-info-card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { UserProfile } from "./user-profile";
 
 const ProfilePage = async () => {
 
@@ -17,9 +18,9 @@ const ProfilePage = async () => {
 
     return (
         <div className="h-full">
-            <h1 className="text-lg sm:text-4xl font-bold leading-snug">
-                {sharedInfoByUser.length} Shared info
-            </h1>
+            <UserProfile 
+                infoCount={sharedInfoByUser.length}
+            />
             <Separator className="mt-4 h-0.5"/>
             {sharedInfoByUser.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
@@ -35,6 +36,7 @@ const ProfilePage = async () => {
                             location={info.location}
                             isVerified={info.verified}
                             verifiedBy={info.verifiedBy}
+                            isUpdated={info.isUpdated}
                             createdAt={info.createdAt}
                             updatedAt={info.updatedAt}
                         />

@@ -24,6 +24,7 @@
     "aws-sdk": "^2.1594.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns": "^3.6.0",
     "lucide-react": "^0.364.0",
     "next": "14.1.4",
     "next-cloudinary": "^6.3.0",
