@@ -29,3 +29,20 @@ model ShareInfo{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt @default(now())
 }
+
+model campaign{
+  id String @default(uuid()) @id
+  name String
+  need String
+  description String
+  location String
+  imageUrl String
+  createdAt DateTime @default(now())
+}
+
+model campaignDonation{
+  id String @default(uuid()) @id
+  userId String
+  campaignId String
+  amount Int
+}

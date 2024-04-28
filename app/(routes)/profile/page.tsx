@@ -1,4 +1,4 @@
-import { getSharedInfoByUser } from "@/db/queries";
+import { getSharedInfoByUser, getUserDonations } from "@/db/queries";
 import { ShareInfoCard } from "./share-info-card";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
@@ -7,12 +7,21 @@ import { UserProfile } from "./user-profile";
 const ProfilePage = async () => {
 
     const getSharedInfoByUserData = getSharedInfoByUser();
+    const userDonataionsData = getUserDonations();
 
     const [
-        sharedInfoByUser
+        sharedInfoByUser,
+        userDonations
     ] = await Promise.all([
-        getSharedInfoByUserData
-    ])
+        getSharedInfoByUserData,
+        userDonataionsData
+    ]);
+
+    let totalAmountDonated = 0;
+
+    userDonations?.map((u) => {
+        totalAmountDonated += u.amount;
+    })
 
     if(!sharedInfoByUser) return null;
 
@@ -20,6 +29,7 @@ const ProfilePage = async () => {
         <div className="h-full">
             <UserProfile 
                 infoCount={sharedInfoByUser.length}
+                totalAmountDonated={totalAmountDonated}
             />
             <Separator className="mt-4 h-0.5"/>
             {sharedInfoByUser.length > 0 ? (

@@ -49,3 +49,41 @@ export const getSharedInfoByUser = cache(async () => {
     return data;
 
 });
+
+export const getCampaigns = cache(async () => {
+    const {userId} = auth();
+
+    if(!userId) return null;
+
+    const data = await db.campaign.findMany({
+        orderBy:{
+            createdAt: 'desc'
+        }
+    });
+
+    return data;
+});
+
+export const getCampaignCollectedAmount = cache(async (campaignId: string) => {
+    
+    const data = await db.campaignDonation.findMany({
+        where: {
+            campaignId
+        }
+    });
+
+    return data;
+});
+
+export const getUserDonations = cache(async () => {
+    const {userId} = auth();
+    if(!userId) return null;
+
+    const data = await db.campaignDonation.findMany({
+        where: {
+            userId
+        }
+    });
+
+    return data;
+})  

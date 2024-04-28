@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { HeartHandshake, Home, Library, ListChecks, MessageSquareWarning, ReceiptText, Share2, User } from "lucide-react";
+import { Coins, HandCoins, HeartHandshake, Home, Library, ListChecks, MessageSquareWarning, ReceiptText, Share2, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -43,6 +43,12 @@ export const SidebarItem = ({
     }
     else if(label === "Profile"){
         Icon = <User className={cn("h-6 w-6", active && "text-red-500")} />
+    }
+    else if(label === "Donate"){
+        Icon = <HandCoins className={cn("h-6 w-6", active && "text-red-500")} />
+    }
+    else if(label === "Create Campaign"){
+        Icon = <Coins className={cn("h-6 w-6", active && "text-red-500")} />
     }
 
     return (

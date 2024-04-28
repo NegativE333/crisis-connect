@@ -34,12 +34,28 @@ export const Sidebar = async ({
                     href="/"
                 />
                 <SidebarItem 
-                    label="Preparedness Tips"
-                    href="/preparedness-tips"
-                />
-                <SidebarItem 
                     label="Share Info"
                     href="/share-info"
+                />
+                <SidebarItem 
+                    label="Donate"
+                    href="/donate"
+                />
+                {isAdmin() && (
+                    <>
+                        <SidebarItem
+                            label="Create Campaign"
+                            href="/create-campaign"
+                        />
+                        <SidebarItem
+                            label="Send Alert"
+                            href="/send-alert"
+                        />
+                    </>
+                )}
+                <SidebarItem 
+                    label="Preparedness Tips"
+                    href="/preparedness-tips"
                 />
                 <SidebarItem 
                     label="Disaster's Info"
@@ -56,17 +72,6 @@ export const Sidebar = async ({
                 <SidebarItem 
                     label="Profile"
                     href="/profile"
-                />
-                {isAdmin() && (
-                    <SidebarItem
-                        label="Send Alert"
-                        href="/send-alert"
-                    />
-                )}
-            </div>
-            <div className="mb-4">
-                <UserButton 
-                    afterSignOutUrl="/"
                 />
             </div>
         </div>
