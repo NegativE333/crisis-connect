@@ -7,6 +7,7 @@
 - Personalized email notifications for disaster events
 - Comprehensive information about different types of disasters
 - Preparedness tips for various disaster scenarios
+- Integrated Stripe for processing secure donation transactions, allowing users to contribute to disaster relief efforts safely.
 
 ## Technologies Used
 - **Next.js**: A React framework for building server-side rendered applications
@@ -15,6 +16,7 @@
 - **PostgreSQL**: A powerful, open-source relational database system
 - **Sanity**: A headless CMS for managing content
 - **AWS SES (Simple Email Service)**: A scalable email service for sending transactional and marketing emails
+- **Stripe**: A payment processing platform that provides secure and reliable transaction handling for donation processing.
 
 ## Configuration
 1. Clone the repository to your local machine.
