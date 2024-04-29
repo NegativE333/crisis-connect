@@ -52,10 +52,10 @@ export const CollectedAmount = async ({
             <div className="flex flex-col gap-2">
                 <div className="flex flex-col gap-1 mb-2">
                     <h5 className="flex justify-between">
-                        Total amount need: <span className="font-semibold">{need.toLocaleString()} ₹</span>
+                        Total Amount Needed: <span className="font-semibold">{need.toLocaleString()} ₹</span>
                     </h5>
                     <h5 className="flex justify-between">
-                        Total amount collected: <p className="font-semibold">{amount.toLocaleString()} ₹</p>
+                        Total Amount Collected: <p className="font-semibold">{amount.toLocaleString()} ₹</p>
                     </h5>
                 </div>
                 {need > amount && (

@@ -25,11 +25,6 @@ export async function POST(req: Request){
     const session = event.data.object as Stripe.Checkout.Session;
 
     if(event.type === "checkout.session.completed"){
-        console.log("Hi there this the log message ****************************************************************************************************");
-         
-        const payment = await stripe.paymentIntents.retrieve(
-            session.payment_intent as string
-        );
 
         if(!session?.metadata?.userId || !session?.metadata?.campaignId || !session?.metadata?.amount){
             return new NextResponse("Meta data is missing", {status: 400});

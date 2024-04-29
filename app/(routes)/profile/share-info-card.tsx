@@ -4,10 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { TooltipWrapper } from "@/components/wrapper/tooltip-wrapper";
+import { minVerificationsNeeded } from "@/constants";
 import { useDeleteInfoModal } from "@/store/use-delete-info-modal";
 import { BadgeCheck, MapPin, PenLine, ShieldCheck, ShieldXIcon, SquarePen, Trash } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
+import {format} from 'date-fns';
 
 type Props = {
     userId: string;
@@ -47,7 +49,7 @@ export const ShareInfoCard = ({
         router.push('/sign-in');
     }
 
-    if(verifiedBy.length >= 1) isVerified = true;
+    if(verifiedBy.length >= minVerificationsNeeded) isVerified = true;
 
     return (
         <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
@@ -106,6 +108,9 @@ export const ShareInfoCard = ({
                     </p>
                     <Separator className="my-2"/>
                     <div className="flex justify-between items-center">
+                        <div>
+                            {format(createdAt, "d MMM yyyy 'at' p")}
+                        </div>
                         <div className="ml-auto flex gap-2">
                             <TooltipWrapper tip="Edit">
                                 <Button

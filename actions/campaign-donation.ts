@@ -39,7 +39,7 @@ export const createStripUrl = async ({
                         name: `Donation to Campaign "${campaignName}"`,
                         description: `Your donation can change lives. Help us make a difference today. Thank you!`
                     },
-                    unit_amount: amount * 100, // Default to a minimal unit amount (e.g., 1 INR)
+                    unit_amount: amount * 100,
                 }
             }
         ],

@@ -3,6 +3,7 @@
 import { unVerifyPost, verifyPost } from "@/actions/verify-unverify-post";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { minVerificationsNeeded } from "@/constants";
 import { BadgeCheck, Loader, MapPin, PenLine, ShieldCheck, ShieldXIcon } from "lucide-react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
@@ -20,8 +21,6 @@ type Props = {
     isVerified: boolean;
     verifiedBy: string[];
     isUpdated: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 export const ShareInfoCard = ({
@@ -35,8 +34,6 @@ export const ShareInfoCard = ({
     isVerified,
     verifiedBy,
     isUpdated,
-    createdAt,
-    updatedAt
 }: Props) => {
 
     const router = useRouter();
@@ -70,7 +67,7 @@ export const ShareInfoCard = ({
         router.push('/sign-in');
     }
 
-    if(verifiedBy.length >= 1) isVerified = true;
+    if(verifiedBy.length >= minVerificationsNeeded) isVerified = true;
 
     return (
         <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg h-full">
@@ -113,9 +110,6 @@ export const ShareInfoCard = ({
                         {verifiedBy.length}
                     </Badge>
                 </div>
-                {/* <div className="absolute right-1 bottom-1 bg-black bg-opacity-40 p-1 px-2 rounded-full">
-                    {type}
-                </div> */}
             </div>
             <div className="p-6 flex-grow flex flex-col justify-between">
                 <div>

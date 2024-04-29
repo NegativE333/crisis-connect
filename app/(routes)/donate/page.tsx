@@ -1,11 +1,10 @@
 import { Separator } from "@/components/ui/separator";
 import { getCampaigns } from "@/db/queries";
 import Image from "next/image";
-import {format} from 'date-fns';
-import { DonateButton } from "./donate-button";
 import { CollectedAmount } from "./collected-amount";
 import { Badge } from "@/components/ui/badge";
-import { MapPin } from "lucide-react";
+import { Info, MapPin } from "lucide-react";
+import { DonateInfoHover } from "./donate-info-hover";
 
 const DonatePage = async () => {
 
@@ -15,9 +14,14 @@ const DonatePage = async () => {
 
     return (
         <div>
-            <h1 className="text-lg sm:text-4xl font-bold leading-snug">
-                Support <span className="text-rose-500">Disaster</span> Relief: Donate Now
-            </h1>
+            <div className="flex items-center justify-between">
+                <h1 className="text-lg sm:text-4xl font-bold leading-snug">
+                    Support <span className="text-rose-500">Disaster</span> Relief: Donate Now
+                </h1>
+                <DonateInfoHover>
+                    <Info className="ml-auto h-8 w-8 animate-pulse duration-1000"/>
+                </DonateInfoHover>
+            </div>
             <Separator className="mt-4 h-0.5" />
             <div className="mt-4 flex flex-col gap-4">
                 {campaigns?.map((c) => {
