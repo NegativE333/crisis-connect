@@ -29,3 +29,8 @@
 
 ## Deployment
 - The project can be deployed using platforms like Vercel, Netlify, or AWS Elastic Beanstalk. Ensure that the environment variables are properly configured in the deployment environment.
+
+## System Architecture
+![system-dark](https://github.com/NegativE333/crisis-connect/assets/102456428/946d0214-c9ec-4f32-a161-41ad90e9d806)
+
+
