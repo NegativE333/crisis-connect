@@ -22,8 +22,21 @@
 1. Clone the repository to your local machine.
 2. Install dependencies by running ```npm install```.
 3. Configure environment variables:
-    - Set up a PostgreSQL database and update the connection URL in the .env file.
-    - Set up AWS SES credentials and update the .env file with the access key ID and secret access key.
+    ```bash
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+    CLERK_SECRET_KEY=
+    DATABASE_URL=
+    SANITY_PROJECT_ID=
+    STRIPE_API_KEY=
+    NEXT_PUBLIC_IPINFO_TOKEN=
+    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+    AWS_ACCESS_KEY_ID_KEY=
+    AWS_SECRET_KEY_KEY=
+    AWS_REGION_KEY=
+    ADMIN_ID=
+    NEXT_PUBLIC_APP_URL="http://localhost:3000"
+    STRIPE_WEBHOOK_SECRET=
+    ```
 4. Run the development server using npm run dev.
 5. Access the application at http://localhost:3000.
 
